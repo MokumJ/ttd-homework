@@ -14,31 +14,32 @@ class Codebreaker
     end
 
     def guess(input)
-         if input.length != 4
-        output.puts "Try guessing a number with four digits"
-      end
-      hint = ''
-      (0..3).each do |array|
-      if match(input, array)
-         hint << '+'
-      end
-    end
-
-
-         (0..3).each do |array|
-           if matching_number(input, array)
-            hint << '-'
-           end
-         end
-         @output.puts hint
-      end
-
-
-    def matching_number(input, array)
-      @secret_number.include?(input[array]) && !match(input, array)
-    end
-    def match(input, array)
-      input[array] == @secret_number[array]
+      input.length!=4 ? @output.puts("Try guessing a number with four digits")
+       : @output.puts('+'*hint_plus(input) + '-'*hint_min(input))
    end
- end
- end
+   def hint_plus(input)
+      hint_plus = 0
+      (0..3).each do |m|
+       if match(input, m)
+      hint_plus += 1
+      end
+    end
+      hint_plus
+  end
+  def hint_min(input)
+          hint_min = 0
+         (0..3).each do |m|
+    if matching_number(input, m)
+        hint_min += 1
+        end
+      end
+    hint_min
+  end
+  def matching_number(input, m)
+      @secret_number.include?(input[m]) && !match(input, m)
+    end
+  def match(input, m)
+    input[m] == @secret_number[m]
+  end
+end
+end
